@@ -15,7 +15,7 @@ services:
       SERVICE_TAGS: dev
     working_dir: /var/www
     volumes:
-       - /library/:/var/www
+       - ./:/var/www
     networks:
       - app-network
 
@@ -29,8 +29,8 @@ services:
       - "80:80"
       - "443:443"
     volumes:
-      - /library/:/var/www
-      - /library/nginx/conf.d/:/etc/nginx/conf.d/
+      - ./:/var/www
+      - ./nginx/conf.d/:/etc/nginx/conf.d/
     networks:
       - app-network
 
@@ -43,14 +43,14 @@ services:
     ports:
       - "3306:3306"
     environment:
-      MYSQL_DATABASE: laravel
-      MYSQL_ROOT_PASSWORD: 123456
-      MYSQL_USER: user
-      MYSQL_PASSWORD: 123456
+      MYSQL_DATABASE: *database*
+      MYSQL_ROOT_PASSWORD: *password*
+      MYSQL_USER: *user*
+      MYSQL_PASSWORD: *password*
       SERVICE_TAGS: dev
       SERVICE_NAME: mysql
     volumes:
-      - dbdata:/var/lib/mysql
+      - ./dbdata:/var/lib/mysql
     networks:
       - app-network
 
